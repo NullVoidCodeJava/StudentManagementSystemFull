@@ -29,6 +29,8 @@ RUN echo "spring.datasource.username=root" >> /app/config/application.properties
 RUN echo "spring.datasource.password=root" >> /app/config/application.properties
 RUN echo "spring.jpa.hibernate.ddl-auto=update" >> /app/config/application.properties
 RUN echo "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect" >> /app/config/application.properties
+RUN echo "spring.datasource.initialization-mode=always" >> /app/config/application.properties
+RUN echo "spring.jpa.show-sql=true" >> /app/config/application.properties
 
 # Expose the port the app runs on
 EXPOSE 8080
