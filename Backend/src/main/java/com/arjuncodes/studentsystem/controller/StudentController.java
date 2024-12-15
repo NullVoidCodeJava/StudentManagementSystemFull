@@ -30,4 +30,10 @@ public class StudentController {
     {
         return "The App is working fine!!";
     }
+
+    @GetMapping("/currentTime")
+    public String getCurrentTimeDateString()
+    {
+        return new java.util.Date().toString();
+    }
 }
