@@ -1,33 +1,38 @@
-version: '3.8'
+#Making this docker compose file compatible to run the containers using docker swarm
 
+version: '3'
 services:
   backend:
-    build: ./Backend
+    image: vedantchimote/studentsystembackend:latest
     ports:
       - "8080:8080"
     depends_on:
       - mysql-db
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/fullstack?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
 
   frontend:
-    build: ./Frontend
+    image: vedantchimote/studentsystemfrontend:latest
     ports:
       - "3000:3000"
-    depends_on:
-      - backend
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
 
   mysql-db:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: fullstack
-    ports:
-      - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
 
 volumes:
   mysql-data:
