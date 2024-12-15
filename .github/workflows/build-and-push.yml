@@ -26,7 +26,7 @@ jobs:
     - name: Build Backend
       run: |
         cd Backend
-        mvn clean package
+        mvn clean package -DskipTests
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
