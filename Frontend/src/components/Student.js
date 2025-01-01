@@ -57,7 +57,7 @@ useEffect(()=>{
       value={address}
       onChange={(e)=>setAddress(e.target.value)}
       />
-      <Button variant="contained" color="primary" onClick={handleClick}>
+      <Button variant="contained" color="secondary" onClick={handleClick}>
   Submit
 </Button>
     </form>
