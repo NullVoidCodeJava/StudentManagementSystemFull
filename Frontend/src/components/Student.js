@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Container ,Paper,Button} from '@material-ui/core';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -19,28 +21,51 @@ export default function Student() {
     const[students,setStudents]=useState([])
      const classes = useStyles();
 
-  const handleClick=(e)=>{
-    e.preventDefault()
-    const student={name,address}
-    console.log(student)
-    fetch("http://localhost:8080/student/add",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(student)
+//   const handleClick=(e)=>{
+//     e.preventDefault()
+//     const student={name,address}
+//     console.log(student)
+//     fetch("http://localhost:8080/student/add",{
+//       method:"POST",
+//       headers:{"Content-Type":"application/json"},
+//       body:JSON.stringify(student)
 
+//   }).then(()=>{
+//     console.log("New Student added")
+//   })
+// }
+
+const handleClick=(e)=>{
+  e.preventDefault()
+  const student={name,address}
+  console.log(student)
+  fetch(`${API_URL}/student/add`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(student)
   }).then(()=>{
     console.log("New Student added")
   })
 }
 
+// useEffect(()=>{
+//   fetch("http://localhost:8080/student/getAll")
+//   .then(res=>res.json())
+//   .then((result)=>{
+//     setStudents(result);
+//   }
+// )
+// },[])
+
 useEffect(()=>{
-  fetch("http://localhost:8080/student/getAll")
+  fetch(`${API_URL}/student/getAll`)
   .then(res=>res.json())
   .then((result)=>{
     setStudents(result);
   }
 )
 },[])
+
   return (
 
     <Container>
